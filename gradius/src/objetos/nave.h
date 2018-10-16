@@ -9,7 +9,6 @@ namespace Juego {
 			Vector2 pos;
 			Vector2 velocidad;
 			Vector2 aceleracion;
-			float rotacion;
 			Texture2D textura;
 			Rectangle posYEscala;
 			Rectangle spriteFuente;

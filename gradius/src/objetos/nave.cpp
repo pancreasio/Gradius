@@ -8,7 +8,6 @@
 namespace Juego {
 	namespace Nave {
 
-		void calcuarAngRotacion();
 		void moverNave();
 		void chequearColisionBordes();
 		Jug nave;
@@ -36,58 +35,18 @@ namespace Juego {
 			}
 		}
 
-		void calcuarAngRotacion() {
-			vecReferncia.x = nave.pos.x - nave.pos.x;
-			vecReferncia.y = 0.0f - nave.pos.y;
-
-			vecDireccion.x = GetMouseX() - nave.pos.x;
-			vecDireccion.y = GetMouseY() - nave.pos.y;
-
-			prodVec = vecReferncia.x*vecDireccion.x + vecReferncia.y*vecDireccion.y;
-			moduloVRef = sqrt(pow(vecReferncia.x, 2) + pow(vecReferncia.y, 2));
-			moduloVDir = sqrt(pow(vecDireccion.x, 2) + pow(vecDireccion.y, 2));
-			prodMod = moduloVRef * moduloVDir;
-			nave.rotacion = acos(prodVec / (prodMod));
-
-			nave.rotacion *= RAD2DEG;
-
-			if (GetMouseX() < nave.pos.x) {
-				nave.rotacion = 360 - nave.rotacion;
-			}
-		}
 
 		void moverNave() {
-			//ROTACION MOUSE--------------------------------------------------
-			calcuarAngRotacion();
-
-			//MOVIMIENTO MOUSE-------------------------------------------
-			if (IsMouseButtonDown(MOUSE_RIGHT_BUTTON)) {
-				nave.aceleracion.x += sin(nave.rotacion*DEG2RAD)*(aceleracionBase*GetFrameTime());
-				nave.aceleracion.y += cos(nave.rotacion*DEG2RAD)*(aceleracionBase*GetFrameTime());
-				nave.aceleracion.x *= GetFrameTime();
-				nave.aceleracion.y *= GetFrameTime();
-			}
-			else {
-				nave.aceleracion = { 0.0f,0.0f };
+			//MOVIMIENTO -------------------------------------------
+			if (IsKeyDown(KEY_UP)||IsKeyDown(KEY_W)){
+				nave.velocidad.y = -500.0f*GetFrameTime();
+			}else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
+				nave.velocidad.y = 500.0f*GetFrameTime();
+			}else {
+				nave.velocidad.y = 0;
 			}
 
-			nave.velocidad.x += nave.aceleracion.x;
-			nave.velocidad.y += nave.aceleracion.y;
-			
-			if (nave.velocidad.x >= velocidadMax*GetFrameTime()) {
-				nave.velocidad.x = velocidadMax*GetFrameTime();
-			}else if (nave.velocidad.x <= -velocidadMax * GetFrameTime()) {
-				nave.velocidad.x = -velocidadMax * GetFrameTime();
-			}
-			if(nave.velocidad.y>=velocidadMax*GetFrameTime()){
-				nave.velocidad.y = velocidadMax * GetFrameTime();
-			}else if (nave.velocidad.y <= -velocidadMax * GetFrameTime()) {
-				nave.velocidad.y = -velocidadMax * GetFrameTime();
-			}
-
-			nave.pos.x += nave.velocidad.x;
-			nave.pos.y -= nave.velocidad.y;
-			nave.posYEscala.x = nave.pos.x;
+			nave.pos.y += nave.velocidad.y;
 			nave.posYEscala.y = nave.pos.y;
 		}
 
@@ -98,22 +57,21 @@ namespace Juego {
 
 		void dibujarNave() {
 			if (!PantallaJuego::pausa) {
-				DrawTexturePro(nave.textura, nave.spriteFuente, nave.posYEscala, nave.origen, nave.rotacion, WHITE);
+				DrawTexturePro(nave.textura, nave.spriteFuente, nave.posYEscala, nave.origen, 90.0f, WHITE);
 			}else {
-				DrawTexturePro(nave.textura, nave.spriteFuente, nave.posYEscala, nave.origen, nave.rotacion, LIGHTGRAY);
+				DrawTexturePro(nave.textura, nave.spriteFuente, nave.posYEscala, nave.origen, 90.0f, LIGHTGRAY);
 			}
 			
 		}
 
 		void inicializarNave() {
-			nave.pos.x = (float)GetScreenWidth() / 2;
-			nave.pos.y = (float)GetScreenHeight() / 2;
 			nave.velocidad.x = 0.0f;
 			nave.velocidad.y = 0.0f;
-			nave.aceleracion.x = 0;
-			nave.aceleracion.y = 0;
-			nave.rotacion = 0.0f;
+			nave.aceleracion.x = 0.0f;
+			nave.aceleracion.y = 0.0f;
 			nave.textura = LoadTexture("res/nave.png");
+			nave.pos.x = (float)GetScreenWidth()*0.01+nave.textura.width;
+			nave.pos.y = (float)GetScreenHeight() / 2;
 			nave.posYEscala = { nave.pos.x, nave.pos.y, (float)nave.textura.width * 2, (float)nave.textura.height * 2 };	//los primeros dos valores dan la posicion y los otros escalan la textura al tamaño deseado
 			nave.spriteFuente = { 0.0f,0.0f, (float)nave.textura.width, (float)nave.textura.height };	//indica que parte del archivo de imagen se toma(por si hay una tira de sprites)
 			nave.origen = { (float)nave.textura.width,(float)nave.textura.height };	//pto de referencia para la rotacion
@@ -122,7 +80,7 @@ namespace Juego {
 		}
 
 		void desinicializarNave() {
-			UnloadTexture(nave.textura);
+
 		}
 	}
 }

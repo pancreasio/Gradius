@@ -6,7 +6,6 @@
 #include "objetos/asteroides.h"
 #include "objetos/disparo.h"
 #include "colisiones/colisiones.h"
-#include "oleadas/oleadas.h"
 #include "botones/botones.h"
 
 namespace Juego {
@@ -15,7 +14,6 @@ namespace Juego {
 		using namespace Nave;
 		using namespace Disparo;
 		using namespace Colisiones;
-		using namespace Oleadas;
 		using namespace Botones;
 
 		using namespace Juego;
@@ -45,7 +43,6 @@ namespace Juego {
 				actualizarNave();
 				actualizarDisparos();
 				actualizarAsteroides();
-				actualizarOleadas();
 				actualizarColisiones();
 			}
 			if (jugadorPerdio()) {
@@ -75,20 +72,17 @@ namespace Juego {
 
 			const double tamanioLetras = (GetScreenHeight()*GetScreenWidth())*0.0042 / 100;
 
-			DrawText(FormatText("%f", temporizador),0+tamanioLetras,0+tamanioLetras,tamanioLetras,DARKGRAY);
-			DrawText(FormatText("%i", oleadaActual+1), GetScreenWidth() / 2, 0 + tamanioLetras, tamanioLetras, DARKGRAY);
 		}
 
 		void inicializarPantJuego() {
 			if (!estaInicializado || fase == inicio) {
 				inicializarNave();
-				inicializarOleadas();
 				inicializarAsteroides();
 				inicializarDisparos();
 				inicializarBotones();
 				fase = juego;
 				pausa = false;
-				if (!hayVolumen) {
+				/*if (!hayVolumen) {
 					SetSoundVolume(sonidoDisparo, 0.0f);
 					SetSoundVolume(sonidoExplosionAsteroide, 0.0f);
 					SetSoundVolume(sonidoExplosionDisparo, 0.0f);
@@ -99,7 +93,7 @@ namespace Juego {
 					SetSoundVolume(sonidoExplosionAsteroide, 0.5f);
 					SetSoundVolume(sonidoExplosionDisparo, 0.5f);
 					hayVolumen = true;
-				}
+				}*/
 			}
 			estaInicializado = true;
 		}
@@ -108,9 +102,6 @@ namespace Juego {
 			if (desinicializar && !IsSoundPlaying(sonidoExplosionAsteroide)) {
 				desinicializarNave();
 				desinicializarAsteroides();
-				UnloadSound(sonidoExplosionAsteroide);
-				UnloadSound(sonidoDisparo);
-				UnloadSound(sonidoExplosionDisparo);
 			
 				if (jugadorPerdio()) {
 					estado = gameOver;

@@ -29,7 +29,7 @@ namespace Juego {
 			char subt2[] = "Programador: Federico van Gelderen";
 			char subt3[] = "Sonidos: Bfxr";
 			char subt4[] = "Imagenes: piskelapp.com";
-			char version[] = "Asteroids v1.0";
+			char version[] = "Asteroids v0.1";
 
 			
 			DrawText(titulo, (GetScreenWidth() - MeasureText(titulo, tamanioTitulo)) / 2, 0, tamanioTitulo, DARKGRAY);

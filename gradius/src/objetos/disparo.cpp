@@ -32,8 +32,6 @@ namespace Juego {
 
 		void inicializarDisparos() {
 			crearDisparos();
-			sonidoDisparo = LoadSound("res/disparo.wav");
-			sonidoExplosionDisparo = LoadSound("res/explosionDisparo.wav");
 		}
 
 		void actualizarDisparos(){
@@ -48,8 +46,7 @@ namespace Juego {
 					if (!disparo[i].activo) {
 						disparo[i].pos = nave.pos;
 						disparo[i].activo = true;
-						disparo[i].rotacion = nave.rotacion;
-						PlaySound(sonidoDisparo);
+						disparo[i].rotacion = 90.0f;
 						break;
 					}
 				}

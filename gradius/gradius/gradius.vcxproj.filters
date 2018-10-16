@@ -1,17 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Archivos de recursos">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{571ecebc-8462-40e1-bef9-373d1522d632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Pantallas">
+      <UniqueIdentifier>{90bd43ed-804b-4c5c-a447-ac9588f69411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Objetos">
+      <UniqueIdentifier>{91905b30-2e4b-444e-832e-1bac84186ed7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Botones">
+      <UniqueIdentifier>{bcb55b38-89b3-40c3-bfb4-c65879f40a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Juego">
+      <UniqueIdentifier>{c3f81aa2-701b-4b17-bb04-5592d6263df1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Colisiones">
+      <UniqueIdentifier>{31f310e3-c68a-405c-8d8f-0c4b76adecd6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\botones\botones.cpp">
+      <Filter>src\Botones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\juego\juego.cpp">
+      <Filter>src\Juego</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\colisiones\colisiones.cpp">
+      <Filter>src\Colisiones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\objetos\asteroides.cpp">
+      <Filter>src\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\objetos\disparo.cpp">
+      <Filter>src\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\objetos\nave.cpp">
+      <Filter>src\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pantallas\pantallaCreditos.cpp">
+      <Filter>src\Pantallas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pantallas\pantallaGameOver.cpp">
+      <Filter>src\Pantallas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pantallas\pantallaJuego.cpp">
+      <Filter>src\Pantallas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pantallas\pantallaMenu.cpp">
+      <Filter>src\Pantallas</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\botones\botones.h">
+      <Filter>src\Botones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\juego\juego.h">
+      <Filter>src\Juego</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\colisiones\colisiones.h">
+      <Filter>src\Colisiones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\objetos\asteroides.h">
+      <Filter>src\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\objetos\disparo.h">
+      <Filter>src\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\objetos\nave.h">
+      <Filter>src\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pantallas\pantallaCreditos.h">
+      <Filter>src\Pantallas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pantallas\pantallaGameOver.h">
+      <Filter>src\Pantallas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pantallas\pantallaJuego.h">
+      <Filter>src\Pantallas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pantallas\pantallaMenu.h">
+      <Filter>src\Pantallas</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
