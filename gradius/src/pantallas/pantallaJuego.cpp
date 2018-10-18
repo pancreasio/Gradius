@@ -21,9 +21,6 @@ namespace Juego {
 		fases fase = inicio;
 		static bool desinicializar = false;
 		bool pausa = false;
-		Sound sonidoDisparo;
-		Sound sonidoExplosionAsteroide;
-		Sound sonidoExplosionDisparo;
 		bool hayVolumen=true;
 
 		static bool jugadorPerdio();
@@ -69,9 +66,6 @@ namespace Juego {
 			dibujarNave();
 			dibujarAsteroides();
 			dibujarBotones();
-
-			const double tamanioLetras = (GetScreenHeight()*GetScreenWidth())*0.0042 / 100;
-
 		}
 
 		void inicializarPantJuego() {
@@ -82,24 +76,12 @@ namespace Juego {
 				inicializarBotones();
 				fase = juego;
 				pausa = false;
-				/*if (!hayVolumen) {
-					SetSoundVolume(sonidoDisparo, 0.0f);
-					SetSoundVolume(sonidoExplosionAsteroide, 0.0f);
-					SetSoundVolume(sonidoExplosionDisparo, 0.0f);
-					hayVolumen = false;
-				}
-				else {
-					SetSoundVolume(sonidoDisparo, 0.5f);
-					SetSoundVolume(sonidoExplosionAsteroide, 0.5f);
-					SetSoundVolume(sonidoExplosionDisparo, 0.5f);
-					hayVolumen = true;
-				}*/
 			}
 			estaInicializado = true;
 		}
 
 		void desinicializarPantJuego() {
-			if (desinicializar && !IsSoundPlaying(sonidoExplosionAsteroide)) {
+			if (desinicializar) {
 				desinicializarNave();
 				desinicializarAsteroides();
 			

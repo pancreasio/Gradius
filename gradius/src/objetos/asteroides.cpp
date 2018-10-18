@@ -17,30 +17,27 @@ namespace Juego {
 		static void moverAsteroides();
 		static void crearAsteroides();
 
-		Asteroide asteroide[totalAsteroides];
+		Asteroide asteroide;
 
 		void chequearColisionBordes() {
-		
+			if (asteroide.activo) {
+				if (asteroide.pos.x <= -asteroide.textura.width) {
+					asteroide.activo = false;
+				}
+			}
 		}
 
 		void crearAsteroides() {
-			/*for (int i = 0; i < oleada[cantOleadas-1].maxAstPosibles; i++){
-				do {
-					asteroide[i].pos.x = GetRandomValue(0, GetScreenWidth());
-					asteroide[i].pos.y = GetRandomValue(0, GetScreenHeight());
-				} while (chequearPosNuevoAst(i));
-				do {
-					asteroide[i].velocidad.x = GetRandomValue(-velocidadAst, velocidadAst);
-					asteroide[i].velocidad.y = GetRandomValue(-velocidadAst, velocidadAst);
-				} while (chequearVelNuevoAst(i));
-
-				asteroide[i].radio =(GetRandomValue(radioMinAst,radioMaxAst)/100000.0f) *(float)(GetScreenWidth()*GetScreenHeight());
-				asteroide[i].activo = false;
-				asteroide[i].textura = spriteAsteroide;
-				asteroide[i].posYEscala = { asteroide[i].pos.x , asteroide[i].pos.y , asteroide[i].radio*2 , asteroide[i].radio*2 };
-				asteroide[i].spriteFuente = { 0.0f , 0.0f , (float)spriteAsteroide.width , (float)spriteAsteroide.height };
-				asteroide[i].origen = { asteroide[i].radio , asteroide[i].radio };
-			}*/
+			asteroide.radio =(GetRandomValue(radioMinAst,radioMaxAst)/100000.0f) *(float)(GetScreenWidth()*GetScreenHeight());
+			asteroide.activo = true;
+			asteroide.textura = spriteAsteroide;
+			asteroide.pos.x = GetScreenWidth()+asteroide.textura.width;
+			asteroide.pos.y = GetRandomValue(0+asteroide.textura.height/2, GetScreenHeight() - asteroide.textura.height / 2);
+			asteroide.velocidad.x = GetRandomValue(-500, -1000);
+			asteroide.velocidad.y = 0.0f;
+			asteroide.posYEscala = { asteroide.pos.x , asteroide.pos.y , asteroide.radio*2 , asteroide.radio*2 };
+			asteroide.spriteFuente = { 0.0f , 0.0f , (float)spriteAsteroide.width , (float)spriteAsteroide.height };
+			asteroide.origen = { asteroide.radio , asteroide.radio };
 		}
 
 		void desinicializarAsteroides() {
@@ -49,28 +46,37 @@ namespace Juego {
 
 		void moverAsteroides() {
 			chequearColisionBordes();
-			
-			/*for (int i = 0; i < ; i++){
-				if (asteroide[i].activo){
-					asteroide[i].pos.x += asteroide[i].velocidad.x*GetFrameTime();
-					asteroide[i].pos.y += asteroide[i].velocidad.y*GetFrameTime();
-					asteroide[i].posYEscala.x = asteroide[i].pos.x;
-					asteroide[i].posYEscala.y = asteroide[i].pos.y;
-				}
-			}*/
+			if (asteroide.activo){
+				asteroide.pos.x += asteroide.velocidad.x*GetFrameTime();
+				//asteroide.pos.y += asteroide.velocidad.y*GetFrameTime();
+				asteroide.posYEscala.x = asteroide.pos.x;
+				asteroide.posYEscala.y = asteroide.pos.y;
+			}else {
+				asteroide.activo = true;
+				asteroide.pos.x = GetScreenWidth() + asteroide.textura.width;
+				asteroide.pos.y = GetRandomValue(0, GetScreenHeight());
+				asteroide.velocidad.x = GetRandomValue(-500,-1000);
+			}
 		}
 
 		void inicializarAsteroides() {
+			spriteAsteroide = LoadTexture("res/asteroide.png");
 			crearAsteroides();
 		}
 
 		void actualizarAsteroides() {
 			moverAsteroides();
-			chequearColisionBordes();
 		}
 
 		void dibujarAsteroides(){
-		
+			if (asteroide.activo) {
+				if (!pausa) {
+					DrawTexturePro(asteroide.textura, asteroide.spriteFuente, asteroide.posYEscala, asteroide.origen, 0.0f, WHITE);
+				}
+				else {
+					DrawTexturePro(asteroide.textura, asteroide.spriteFuente, asteroide.posYEscala, asteroide.origen, 0.0f, LIGHTGRAY);
+				}
+			}
 		}
 	}
 }

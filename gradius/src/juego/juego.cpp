@@ -23,7 +23,6 @@ namespace Juego {
 	void inicializarJuego() {
 		InitWindow(anchoPantalla, altoPantalla, "Asteroids");
 		SetExitKey(0);
-		//InitAudioDevice();
 	}
 
 	void inicializarPantallas() {
@@ -95,8 +94,7 @@ namespace Juego {
 	}
 
 	void desinicializarJuego() {
-		CloseAudioDevice();
-		//CloseWindow();
+		CloseWindow();
 	}
 
 	void ejecutar() {

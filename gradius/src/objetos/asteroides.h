@@ -17,7 +17,7 @@ namespace Juego {
 		};
 
 		extern int asteroidesDestruidos;
-		extern Asteroide asteroide[];
+		extern Asteroide asteroide;
 		void inicializarAsteroides();
 		void desinicializarAsteroides();
 		void actualizarAsteroides();
