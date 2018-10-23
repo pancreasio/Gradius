@@ -19,7 +19,6 @@ namespace Juego {
 					nave.perdio = true;
 				}
 			}
-
 			//Asteroides con disparos----------------------------
 
 		}

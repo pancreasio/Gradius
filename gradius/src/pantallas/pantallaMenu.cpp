@@ -22,8 +22,8 @@ namespace Juego {
 		void dibujarMenu() {	
 			double tamanioTitulo = (GetScreenHeight()*GetScreenWidth())*0.0190 / 100;
 			double tamanioVersion = (GetScreenHeight()*GetScreenWidth())*0.0042 / 100.0;
-			char titulo[] = "Asteroids";
-			char version[] = "Asteroids v1.0";
+			char titulo[] = "Gradius";
+			char version[] = "Gradius v0.2";
 			dibujarBotones();
 			DrawText(titulo, (GetScreenWidth() - MeasureText(titulo, tamanioTitulo)) / 2, GetScreenHeight()*0.1f, tamanioTitulo, DARKGRAY);
 			DrawText(version, GetScreenWidth() - MeasureText(version, tamanioVersion), 0 + tamanioVersion, (int)tamanioVersion, DARKGRAY);
