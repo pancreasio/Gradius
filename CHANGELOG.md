@@ -1,3 +1,9 @@
+## v0.2 26-10-2018
+### Añadido
+- Animacion de la nave
+### Modificado
+- Sprite de la nave
+
 ## v0.1 18-10-2018
 ### Añadido
 - Gitignore y README.
