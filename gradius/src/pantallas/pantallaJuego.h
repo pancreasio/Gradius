@@ -5,6 +5,15 @@
 
 namespace Juego {
 	namespace PantallaJuego {
+		struct fondo {
+			Texture2D textura;
+			float velocidadX;
+			Rectangle spriteFuente;
+			Rectangle posYEscala;
+			Vector2 origen;
+			float rotacion;
+			Color colorBase;
+		};
 		enum fases { inicio, juego, salirAMenu, fin };
 		extern fases fase;
 		extern bool pausa;

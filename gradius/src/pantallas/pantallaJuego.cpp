@@ -22,8 +22,12 @@ namespace Juego {
 		static bool desinicializar = false;
 		bool pausa = false;
 		bool hayVolumen=true;
+		static fondo estrellasLejos;
+		static fondo estrellasCerca;
 
 		static bool jugadorPerdio();
+		static void actualizarFondo();
+		static void inicializarFondo();
 
 		bool jugadorPerdio() {
 			if (nave.perdio||nave.gano){
@@ -34,9 +38,21 @@ namespace Juego {
 			}	
 		}
 
+		void actualizarFondo() {
+			estrellasLejos.posYEscala.x -= estrellasLejos.velocidadX*GetFrameTime();
+			if (estrellasLejos.posYEscala.x <= 0) {
+				estrellasLejos.posYEscala.x =GetScreenWidth();
+			}
+			estrellasCerca.posYEscala.x -= estrellasCerca.velocidadX*GetFrameTime();
+			if (estrellasCerca.posYEscala.x <= 0) {
+				estrellasCerca.posYEscala.x = GetScreenWidth();
+			}
+		}
+
 		void actualizarJuego() {
 			actualizarBotones();
 			if (!pausa && fase==juego) {
+				actualizarFondo();
 				actualizarNave();
 				actualizarDisparos();
 				actualizarAsteroides();
@@ -62,10 +78,32 @@ namespace Juego {
 		}
 
 		void dibujarJuego() {
-			dibujarDisparos();
-			dibujarNave();
-			dibujarAsteroides();
-			dibujarBotones();
+			if (!desinicializar&&estaInicializado) {
+				DrawTexturePro(estrellasLejos.textura, estrellasLejos.spriteFuente, estrellasLejos.posYEscala, estrellasLejos.origen, estrellasLejos.rotacion, estrellasLejos.colorBase);
+				DrawTexturePro(estrellasCerca.textura, estrellasCerca.spriteFuente, estrellasCerca.posYEscala, estrellasCerca.origen, estrellasCerca.rotacion, estrellasCerca.colorBase);
+				dibujarDisparos();
+				dibujarNave();
+				dibujarAsteroides();
+				dibujarBotones();
+			}
+		}
+
+		void inicializarFondo() {
+			estrellasLejos.textura = LoadTexture("res/estrellasLejos.png");
+			estrellasLejos.velocidadX=300.0f;
+			estrellasLejos.spriteFuente= { 0.0f,0.0f,(float)estrellasLejos.textura.width,(float)estrellasLejos.textura.height };
+			estrellasLejos.posYEscala= {(float)GetScreenWidth(),(float)GetScreenHeight()/2 ,(float)GetScreenWidth()*2,(float)GetScreenHeight() };
+			estrellasLejos.origen= { (float)GetScreenWidth(), (float)GetScreenHeight() / 2 };
+			estrellasLejos.rotacion=0.0f;
+			estrellasLejos.colorBase = WHITE;
+
+			estrellasCerca.textura = LoadTexture("res/estrellasCerca.png");
+			estrellasCerca.velocidadX = 500.0f;
+			estrellasCerca.spriteFuente = { 0.0f,0.0f,(float)estrellasLejos.textura.width,(float)estrellasLejos.textura.height };
+			estrellasCerca.posYEscala = { (float)GetScreenWidth(),(float)GetScreenHeight() / 2 ,(float)GetScreenWidth() * 2,(float)GetScreenHeight() };
+			estrellasCerca.origen = { (float)GetScreenWidth(), (float)GetScreenHeight() / 2 };
+			estrellasCerca.rotacion = 0.0f;
+			estrellasCerca.colorBase = WHITE;
 		}
 
 		void inicializarPantJuego() {
@@ -76,6 +114,8 @@ namespace Juego {
 				inicializarBotones();
 				fase = juego;
 				pausa = false;
+				inicializarFondo();
+				
 			}
 			estaInicializado = true;
 		}
@@ -84,6 +124,8 @@ namespace Juego {
 			if (desinicializar) {
 				desinicializarNave();
 				desinicializarAsteroides();
+				UnloadTexture(estrellasLejos.textura);
+				UnloadTexture(estrellasCerca.textura);
 			
 				if (jugadorPerdio()) {
 					estado = gameOver;

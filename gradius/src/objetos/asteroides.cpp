@@ -10,9 +10,7 @@ namespace Juego {
 		static const int velocidadAst = 200;
 		static int radioMaxAst = 8;
 		static int radioMinAst = 4;
-		static Texture2D spriteAsteroide;
 		static const int totalAsteroides = 40;
-		int asteroidesDestruidos = 0;
 		static void chequearColisionBordes();
 		static void moverAsteroides();
 		static void crearAsteroides();
@@ -30,18 +28,18 @@ namespace Juego {
 		void crearAsteroides() {
 			asteroide.radio =(GetRandomValue(radioMinAst,radioMaxAst)/100000.0f) *(float)(GetScreenWidth()*GetScreenHeight());
 			asteroide.activo = true;
-			asteroide.textura = spriteAsteroide;
+			asteroide.textura = LoadTexture("res/asteroide.png");
 			asteroide.pos.x = GetScreenWidth()+asteroide.textura.width;
 			asteroide.pos.y = GetRandomValue(0+asteroide.textura.height/2, GetScreenHeight() - asteroide.textura.height / 2);
 			asteroide.velocidad.x = GetRandomValue(-500, -1000);
 			asteroide.velocidad.y = 0.0f;
 			asteroide.posYEscala = { asteroide.pos.x , asteroide.pos.y , asteroide.radio*2 , asteroide.radio*2 };
-			asteroide.spriteFuente = { 0.0f , 0.0f , (float)spriteAsteroide.width , (float)spriteAsteroide.height };
+			asteroide.spriteFuente = { 0.0f , 0.0f , (float)asteroide.textura.width , (float)asteroide.textura.height };
 			asteroide.origen = { asteroide.radio , asteroide.radio };
 		}
 
 		void desinicializarAsteroides() {
-
+			UnloadTexture(asteroide.textura);
 		}
 
 		void moverAsteroides() {
@@ -60,7 +58,7 @@ namespace Juego {
 		}
 
 		void inicializarAsteroides() {
-			spriteAsteroide = LoadTexture("res/asteroide.png");
+			//spriteAsteroide = LoadTexture("res/asteroide.png");
 			crearAsteroides();
 		}
 
