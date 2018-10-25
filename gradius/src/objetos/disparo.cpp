@@ -26,7 +26,7 @@ namespace Juego {
 				disparo[i].radio = 0.000005*((float)GetScreenWidth()*GetScreenHeight());
 				disparo[i].rotacion = 0.0f;
 				disparo[i].activo = false;
-				disparo[i].color = BLACK;	
+				disparo[i].color = WHITE;	
 			}
 		}
 

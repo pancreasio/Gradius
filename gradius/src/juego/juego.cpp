@@ -64,7 +64,7 @@ namespace Juego {
 	void dibujar() {
 		BeginDrawing();
 
-		ClearBackground(RAYWHITE);
+		ClearBackground({0,0,56,255});
 
 		switch (estado) {
 		case menu:
