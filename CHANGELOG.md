@@ -1,8 +1,10 @@
 ## v0.2 26-10-2018
 ### Añadido
 - Animacion de la nave
+- Dos capas de estrellas a diferentes velocidades(parallax)
 ### Modificado
 - Sprite de la nave
+- Color de fondo a azul(tipo espacial)
 
 ## v0.1 18-10-2018
 ### Añadido
