@@ -29,7 +29,7 @@ namespace Juego {
 			asteroide.radio =(GetRandomValue(radioMinAst,radioMaxAst)/100000.0f) *(float)(GetScreenWidth()*GetScreenHeight());
 			asteroide.activo = true;
 			asteroide.textura = LoadTexture("res/asteroide.png");
-			asteroide.pos.x = GetScreenWidth()+asteroide.textura.width;
+			asteroide.pos.x = GetScreenWidth()+ GetScreenWidth()/2;
 			asteroide.pos.y = GetRandomValue(0+asteroide.textura.height/2, GetScreenHeight() - asteroide.textura.height / 2);
 			asteroide.velocidad.x = GetRandomValue(-500, -1000);
 			asteroide.velocidad.y = 0.0f;
@@ -46,7 +46,6 @@ namespace Juego {
 			chequearColisionBordes();
 			if (asteroide.activo){
 				asteroide.pos.x += asteroide.velocidad.x*GetFrameTime();
-				//asteroide.pos.y += asteroide.velocidad.y*GetFrameTime();
 				asteroide.posYEscala.x = asteroide.pos.x;
 				asteroide.posYEscala.y = asteroide.pos.y;
 			}else {
@@ -58,7 +57,6 @@ namespace Juego {
 		}
 
 		void inicializarAsteroides() {
-			//spriteAsteroide = LoadTexture("res/asteroide.png");
 			crearAsteroides();
 		}
 
