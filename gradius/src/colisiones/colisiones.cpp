@@ -20,6 +20,17 @@ namespace Juego {
 				}
 			}
 			//Asteroides con disparos----------------------------
+			if (asteroide.activo) {
+				for (int i = 0; i < cantMaxDisparos; i++) {
+					if (disparo[i].activo) {
+						if (CheckCollisionCircleRec(asteroide.pos, asteroide.posYEscala.width / 2, disparo[i].posYEscala)) {
+							nave.gano = true;
+							asteroide.activo = false;
+							disparo[i].activo = false;
+						}
+					}
+				}
+			}
 		}
 	}
 }

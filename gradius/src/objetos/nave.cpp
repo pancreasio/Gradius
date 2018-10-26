@@ -14,19 +14,12 @@ namespace Juego {
 		
 		void chequearColisionBordes() {
 			//Colision con bordes
-			if (nave.pos.x <= 0) {
-				nave.pos.x = GetScreenWidth();
-			}else if (nave.pos.x >= GetScreenWidth()) {
-				nave.pos.x = 0;
-			}
-
-			if (nave.pos.y <= 0) {
-				nave.pos.y = GetScreenHeight();
-			}else if (nave.pos.y >= GetScreenHeight()) {
-				nave.pos.y = 0+5;
+			if (nave.pos.y- nave.textura.height  <= 0) {
+				nave.pos.y = nave.textura.height ;
+			}else if (nave.pos.y + nave.textura.height >= GetScreenHeight()) {
+				nave.pos.y = GetScreenHeight() - nave.textura.height;
 			}
 		}
-
 
 		void moverNave() {
 			//MOVIMIENTO -------------------------------------------
