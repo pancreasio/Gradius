@@ -16,21 +16,26 @@ namespace Juego {
 		static void chequearColisionBordes();
 		static void moverDisparos();
 		static const float velocidadDisparo = 350.0f;
-		const int cantMaxDisparos=4;
+		const int cantMaxDisparos=15;
 		Balas disparo[cantMaxDisparos];
+		Texture2D spriteDisparo;
 
 		void crearDisparos() {
 			for (int i = 0; i < cantMaxDisparos; i++){
 				disparo[i].pos = { 0.0f, 0.0f };
 				disparo[i].velocidad = { 0.0f,0.0f };
-				disparo[i].radio = 0.000005*((float)GetScreenWidth()*GetScreenHeight());
-				disparo[i].rotacion = 0.0f;
 				disparo[i].activo = false;
+				disparo[i].textura = spriteDisparo;
+				disparo[i].spriteFuente = { 0.0f,0.0f,(float)disparo[i].textura.width,(float)disparo[i].textura.height };
+				disparo[i].posYEscala = { (float)disparo[i].pos.x,(float)disparo[i].pos.y, 0.000023f*(float)(GetScreenWidth()*GetScreenHeight()), 0.00001f*(float)(GetScreenWidth()*GetScreenHeight()) };//(float)disparo[i].textura.width,(float)disparo[i].textura.height };
+				disparo[i].origen = { (float)disparo[i].textura.width / 2,(float)disparo[i].textura.height / 2 };
+				disparo[i].rotacion = 0.0f;
 				disparo[i].color = WHITE;	
 			}
 		}
 
 		void inicializarDisparos() {
+			spriteDisparo = LoadTexture("res/laser.png");
 			crearDisparos();
 		}
 
@@ -45,8 +50,9 @@ namespace Juego {
 				for (int i = 0; i < cantMaxDisparos; i++)	{
 					if (!disparo[i].activo) {
 						disparo[i].pos = nave.pos;
+						disparo[i].posYEscala.x = nave.pos.x;
+						disparo[i].posYEscala.y = nave.pos.y;
 						disparo[i].activo = true;
-						disparo[i].rotacion = 90.0f;
 						break;
 					}
 				}
@@ -72,11 +78,8 @@ namespace Juego {
 		void moverDisparos() {
 			for (int i = 0; i < cantMaxDisparos; i++){
 				if (disparo[i].activo) {
-					disparo[i].velocidad.x = sin(disparo[i].rotacion*DEG2RAD)*velocidadDisparo;
-					disparo[i].velocidad.y = cos(disparo[i].rotacion*DEG2RAD)*velocidadDisparo;
-
-					disparo[i].pos.x += disparo[i].velocidad.x*GetFrameTime();
-					disparo[i].pos.y -= disparo[i].velocidad.y*GetFrameTime();
+					disparo[i].pos.x +=velocidadDisparo*GetFrameTime();
+					disparo[i].posYEscala.x = disparo[i].pos.x;
 				}
 			}
 		}
@@ -84,7 +87,7 @@ namespace Juego {
 		void dibujarDisparos() {
 			for (int i = 0; i < cantMaxDisparos; i++){
 				if (disparo[i].activo) {
-					DrawCircle(disparo[i].pos.x, disparo[i].pos.y,disparo[i].radio,disparo[i].color);
+					DrawTexturePro(disparo[i].textura, disparo[i].spriteFuente, disparo[i].posYEscala, disparo[i].origen, disparo[i].rotacion, disparo[i].color);
 				}
 			}
 		}

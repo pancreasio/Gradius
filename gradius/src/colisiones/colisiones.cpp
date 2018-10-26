@@ -20,7 +20,6 @@ namespace Juego {
 				}
 			}
 			//Asteroides con disparos----------------------------
-
 		}
 	}
 }

@@ -8,17 +8,22 @@ namespace Juego {
 		struct Balas {
 			Vector2 pos;
 			Vector2 velocidad;
-			float radio;
 			float rotacion;
 			bool activo;
+			Texture2D textura;
+			Rectangle spriteFuente;
+			Rectangle posYEscala;
+			Vector2 origen;
 			Color color;
 		};
 
 		extern const int cantMaxDisparos;
-		Balas disparo[];
+		extern Balas disparo[];
+		extern Texture2D spriteDisparo;
 		void inicializarDisparos();
 		void actualizarDisparos();
 		void dibujarDisparos();
+		void desinicializarDisparos();
 	}
 }
 

@@ -11,14 +11,6 @@ namespace Juego {
 		void moverNave();
 		void chequearColisionBordes();
 		Jug nave;
-		static const float aceleracionBase = 100.0f;
-		static const float velocidadMax = 200.0f;
-		static Vector2 vecReferncia;		//vector de la nave.pos al x=0 y=nave.pos
-		static Vector2 vecDireccion;		//vector de la nave.pos a la pos del mouse
-		static float prodVec;
-		static float moduloVRef;
-		static float moduloVDir;
-		static float prodMod;
 		
 		void chequearColisionBordes() {
 			//Colision con bordes
