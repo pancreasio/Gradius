@@ -10,7 +10,7 @@ namespace Juego {
 		enum opcionesMenu { opcJugar, opcCreditos, opcSalirMenu };
 		enum opcionesJuego { opcPausar, opcSilenciar};
 		enum opcionesPausa {opcDespausar,opcVolverPausa,opcReiniciar};
-		enum opcionesGO { opcVolverGO, opcNuevaPartida, opcSalirGO };
+		enum opcionesGO { opcNuevaPartida, opcVolverGO, opcSalirGO };
 		enum opcionesCreditos {opcVolverCreditos};
 		struct Boton {
 			Rectangle posYTamanio;

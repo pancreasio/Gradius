@@ -45,15 +45,15 @@ namespace Juego {
 				botonMenu[i].posYTamanio.width = GetScreenWidth() *0.4f;
 				botonMenu[i].posYTamanio.height = GetScreenHeight() *0.15f;
 				botonMenu[i].estaSeleccionadaConMouse = false;
+				botonMenu[i].estaSeleccionadaConTeclado = false;
 				botonMenu[i].centroX = botonMenu[i].posYTamanio.x + botonMenu[i].posYTamanio.width / 2;
 				botonMenu[i].centroY = botonMenu[i].posYTamanio.y + botonMenu[i].posYTamanio.height / 2;
 			}
-			botonMenu[opcJugar].estaSeleccionadaConTeclado = true;
-
 		}
 
 		void actualizarBotonesMenu() {
-			static int ultimaSeleccion;
+			static int ultimaSeleccion=0;
+			botonMenu[ultimaSeleccion].estaSeleccionadaConTeclado = true;
 
 			if (IsKeyPressed(KEY_UP)) {
 				if (ultimaSeleccion <= 0) {
@@ -281,6 +281,7 @@ namespace Juego {
 			botonCreditos[opcVolverCreditos].posYTamanio.width = GetScreenWidth() *0.4f;
 			botonCreditos[opcVolverCreditos].posYTamanio.height = GetScreenHeight() *0.15f;
 			botonCreditos[opcVolverCreditos].estaSeleccionadaConMouse = false;
+			botonCreditos[opcVolverCreditos].estaSeleccionadaConTeclado = false;
 			botonCreditos[opcVolverCreditos].centroX = botonCreditos[opcVolverCreditos].posYTamanio.x + botonCreditos[opcVolverCreditos].posYTamanio.width / 2;
 			botonCreditos[opcVolverCreditos].centroY = botonCreditos[opcVolverCreditos].posYTamanio.y + botonCreditos[opcVolverCreditos].posYTamanio.height / 2;
 			botonCreditos[opcVolverCreditos].opcion = "Volver";
@@ -289,18 +290,25 @@ namespace Juego {
 		void actualizarBotonesCreditos() {
 			if (CheckCollisionPointRec(GetMousePosition(), botonCreditos[opcVolverCreditos].posYTamanio)) {
 				botonCreditos[opcVolverCreditos].estaSeleccionadaConMouse = true;
-				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-					estado = menu;
-				}
 			}
 			else {
 				botonCreditos[opcVolverCreditos].estaSeleccionadaConMouse = false;
+			}
+			
+			if (IsKeyReleased(KEY_UP)||IsKeyReleased(KEY_DOWN)) {
+				botonCreditos[opcVolverCreditos].estaSeleccionadaConTeclado = true;
+			}
+			
+			if (botonCreditos[opcVolverCreditos].estaSeleccionadaConMouse || botonCreditos[opcVolverCreditos].estaSeleccionadaConTeclado){
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+					estado = menu;
+				}
 			}
 		}
 
 		void dibujarBotonesCreditos() {
 			double tamanioLetras = (GetScreenHeight()*GetScreenWidth())*0.0052 / 100;
-			if (botonCreditos[opcVolverCreditos].estaSeleccionadaConMouse) {
+			if (botonCreditos[opcVolverCreditos].estaSeleccionadaConMouse || botonCreditos[opcVolverCreditos].estaSeleccionadaConTeclado) {
 				DrawRectangleRec(botonCreditos[opcVolverCreditos].posYTamanio, DARKBLUE);
 			}
 			else {
@@ -324,45 +332,95 @@ namespace Juego {
 				botonGO[i].posYTamanio.width = GetScreenWidth() *0.4f;
 				botonGO[i].posYTamanio.height = GetScreenHeight() *0.15f;
 				botonGO[i].estaSeleccionadaConMouse = false;
+				botonGO[i].estaSeleccionadaConTeclado = false;
 				botonGO[i].centroX = botonGO[i].posYTamanio.x + botonGO[i].posYTamanio.width / 2;
 				botonGO[i].centroY = botonGO[i].posYTamanio.y + botonGO[i].posYTamanio.height / 2;
 			}
 		}
 
 		void actualizarBotonesGO() {
+			static int ultimaSeleccion = 0;
+			botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+
+			if (IsKeyPressed(KEY_UP)) {
+				if (ultimaSeleccion <= 0) {
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+					ultimaSeleccion = cantBotonesMenu - 1;
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+				}
+				else {
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+					ultimaSeleccion--;
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+				}
+			}
+
+			if (IsKeyPressed(KEY_DOWN)) {
+				if (ultimaSeleccion >= cantBotonesMenu - 1) {
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+					ultimaSeleccion = 0;
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+				}
+				else {
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+					ultimaSeleccion++;
+					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+				}
+			}
+
 			if (CheckCollisionPointRec(GetMousePosition(), botonGO[opcNuevaPartida].posYTamanio)) {
 				botonGO[opcNuevaPartida].estaSeleccionadaConMouse = true;
-				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-					estado = partida;
-				}
+				ultimaSeleccion = opcNuevaPartida;
 			}
 			else {
 				botonGO[opcNuevaPartida].estaSeleccionadaConMouse = false;
 			}
 			if (CheckCollisionPointRec(GetMousePosition(), botonGO[opcSalirGO].posYTamanio)) {
 				botonGO[opcSalirGO].estaSeleccionadaConMouse = true;
-				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-					enJuego = false;
-				}
+				ultimaSeleccion = opcSalirGO;
 			}
 			else {
 				botonGO[opcSalirGO].estaSeleccionadaConMouse = false;
 			}
 			if (CheckCollisionPointRec(GetMousePosition(), botonGO[opcVolverGO].posYTamanio)) {
 				botonGO[opcVolverGO].estaSeleccionadaConMouse = true;
-				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-					estado = menu;
-				}
+				ultimaSeleccion = opcVolverGO;
 			}
 			else {
 				botonGO[opcVolverGO].estaSeleccionadaConMouse = false;
+			}
+			
+			if (botonGO[opcNuevaPartida].estaSeleccionadaConMouse || botonGO[opcNuevaPartida].estaSeleccionadaConTeclado) {
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+					estado = partida;
+				}
+			}
+				
+			if (botonGO[opcSalirGO].estaSeleccionadaConMouse || botonGO[opcSalirGO].estaSeleccionadaConTeclado) {
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+					enJuego = false;
+				}
+			}
+
+			if (botonGO[opcVolverGO].estaSeleccionadaConMouse || botonGO[opcVolverGO].estaSeleccionadaConTeclado) {
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+					estado = menu;
+				}
+			}	
+
+			for (int i = 0; i < cantBotonesGO; i++) {
+				if (botonGO[i].estaSeleccionadaConMouse) {
+					for (int j = 0; j < cantBotonesGO; j++) {
+						botonGO[j].estaSeleccionadaConTeclado = false;
+					}
+				}
 			}
 		}
 
 		void dibujarBotonesGO() {
 			double tamanioLetras = (GetScreenHeight()*GetScreenWidth())*0.0052 / 100;
 			for (int i = 0; i < cantBotonesGO; i++) {
-				if (botonGO[i].estaSeleccionadaConMouse) {
+				if (botonGO[i].estaSeleccionadaConMouse|| botonGO[i].estaSeleccionadaConTeclado) {
 					DrawRectangleRec(botonGO[i].posYTamanio, DARKBLUE);
 				}
 				else {
