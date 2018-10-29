@@ -12,9 +12,10 @@ namespace Juego {
 		enum opcionesPausa {opcDespausar,opcVolverPausa,opcReiniciar};
 		enum opcionesGO { opcVolverGO, opcNuevaPartida, opcSalirGO };
 		enum opcionesCreditos {opcVolverCreditos};
-		struct Botones {
+		struct Boton {
 			Rectangle posYTamanio;
-			bool estaSeleccionada;
+			bool estaSeleccionadaConMouse;
+			bool estaSeleccionadaConTeclado;	//distingue si el usuario esta usando el mouse o el teclado para desplazarse por los botones
 			std::string opcion;
 			float centroX;
 			float centroY;

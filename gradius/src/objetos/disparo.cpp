@@ -46,7 +46,7 @@ namespace Juego {
 		}
 
 		void disparar() {
-			if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+			if (IsKeyPressed(KEY_SPACE) ) {
 				for (int i = 0; i < cantMaxDisparos; i++)	{
 					if (!disparo[i].activo) {
 						disparo[i].pos = nave.pos;
