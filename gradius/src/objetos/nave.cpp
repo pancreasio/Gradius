@@ -1,7 +1,5 @@
 #include "nave.h"
 
-#include <cmath>
-
 #include "raylib.h"
 #include "pantallas/pantallaJuego.h"
 
@@ -11,6 +9,7 @@ namespace Juego {
 		void moverNave();
 		void chequearColisionBordes();
 		Jug nave;
+		static const float velocidadNave = 600.0f;
 		
 		void chequearColisionBordes() {
 			//Colision con bordes
@@ -24,10 +23,10 @@ namespace Juego {
 		void moverNave() {
 			//MOVIMIENTO -------------------------------------------
 			if (IsKeyDown(KEY_UP)||IsKeyDown(KEY_W)){
-				nave.velocidad.y = -500.0f*GetFrameTime();
+				nave.velocidad.y = -velocidadNave *GetFrameTime();
 				nave.spriteFuente= { ((float)nave.textura.width / 3)*2, 0.0f, (float)nave.textura.width/3, (float)nave.textura.height };
 			}else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
-				nave.velocidad.y = 500.0f*GetFrameTime();
+				nave.velocidad.y = velocidadNave *GetFrameTime();
 				nave.spriteFuente = { 0.0f, 0.0f, (float)nave.textura.width/3, (float)nave.textura.height };
 			}else {
 				nave.velocidad.y = 0;

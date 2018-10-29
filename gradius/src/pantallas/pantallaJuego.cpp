@@ -20,6 +20,9 @@ namespace Juego {
 		static bool estaInicializado = false;
 		fases fase = inicio;
 		static bool desinicializar = false;
+		Sound sonidoDisparo;
+		Sound sonidoExplosionNave;
+		Sound sonidoExplosionAsteroide;
 		bool pausa = false;
 		bool hayVolumen=true;
 		static fondo estrellasLejos;
@@ -115,17 +118,22 @@ namespace Juego {
 				fase = juego;
 				pausa = false;
 				inicializarFondo();
-				
+				sonidoDisparo = LoadSound("res/disparo.wav");
+				sonidoExplosionNave = LoadSound("res/explosionNave.wav");
+				sonidoExplosionAsteroide = LoadSound("res/explosionAsteroide.wav");
 			}
 			estaInicializado = true;
 		}
 
 		void desinicializarPantJuego() {
-			if (desinicializar) {
+			if (desinicializar && !IsSoundPlaying(sonidoExplosionAsteroide) && !IsSoundPlaying(sonidoExplosionNave)) {
 				desinicializarNave();
 				desinicializarAsteroides();
 				UnloadTexture(estrellasLejos.textura);
 				UnloadTexture(estrellasCerca.textura);
+				UnloadSound(sonidoDisparo);
+				UnloadSound(sonidoExplosionNave);
+				UnloadSound(sonidoExplosionAsteroide);
 			
 				if (jugadorPerdio()) {
 					estado = gameOver;

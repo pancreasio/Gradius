@@ -16,6 +16,7 @@ namespace Juego {
 			//Nave con asteroides------------------------------
 			if (asteroide.activo) {
 				if (CheckCollisionCircleRec(asteroide.pos, asteroide.radio,nave.cajaColision)) {
+					PlaySound(sonidoExplosionAsteroide);
 					nave.perdio = true;
 				}
 			}
@@ -24,9 +25,13 @@ namespace Juego {
 				for (int i = 0; i < cantMaxDisparos; i++) {
 					if (disparo[i].activo) {
 						if (CheckCollisionCircleRec(asteroide.pos, asteroide.posYEscala.width / 2, disparo[i].posYEscala)) {
-							nave.gano = true;
+							PlaySound(sonidoExplosionNave);
 							asteroide.activo = false;
 							disparo[i].activo = false;
+							asteroidesDestruidos++;
+						}
+						if (asteroidesDestruidos >= 10) {
+							nave.gano = true;
 						}
 					}
 				}

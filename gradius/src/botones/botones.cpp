@@ -216,12 +216,12 @@ namespace Juego {
 				else {
 					botonPausa[opcDespausar].estaSeleccionadaConMouse = false;
 				}
-				if (CheckCollisionPointRec(GetMousePosition(), botonJuego[opcSilenciar].posYTamanio)) {
-					botonJuego[opcSilenciar].estaSeleccionadaConMouse = true;
+				if (CheckCollisionPointRec(GetMousePosition(), botonPausa[opcSilenciar].posYTamanio)) {
+					botonPausa[opcSilenciar].estaSeleccionadaConMouse = true;
 					ultimaSeleccion = opcSilenciar;
 				}
 				else {
-					botonJuego[opcSilenciar].estaSeleccionadaConMouse = false;
+					botonPausa[opcSilenciar].estaSeleccionadaConMouse = false;
 				}
 				if (CheckCollisionPointRec(GetMousePosition(), botonPausa[opcReiniciar].posYTamanio)) {
 					botonPausa[opcReiniciar].estaSeleccionadaConMouse = true;
@@ -243,20 +243,23 @@ namespace Juego {
 						pausa = false;
 					}
 				}
+				if (IsKeyReleased(KEY_ESCAPE)) {
+					pausa = false;
+				}
 				
 				if (botonPausa[opcSilenciar].estaSeleccionadaConMouse || botonPausa[opcSilenciar].estaSeleccionadaConTeclado) {
 					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
-						/*if (hayVolumen) {
+						if (hayVolumen) {
 							SetSoundVolume(sonidoDisparo, 0.0f);
 							SetSoundVolume(sonidoExplosionAsteroide, 0.0f);
-							SetSoundVolume(sonidoExplosionDisparo, 0.0f);
+							SetSoundVolume(sonidoExplosionNave, 0.0f);
 							hayVolumen = false;
 						}else {
 							SetSoundVolume(sonidoDisparo, 0.5f);
 							SetSoundVolume(sonidoExplosionAsteroide, 0.5f);
-							SetSoundVolume(sonidoExplosionDisparo, 0.5f);
+							SetSoundVolume(sonidoExplosionNave, 0.5f);
 							hayVolumen = true;
-						}*/
+						}
 					}
 				}
 				

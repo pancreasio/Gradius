@@ -1,7 +1,5 @@
 #include "disparo.h"
 
-#include <cmath>
-
 #include "raylib.h"
 #include "nave.h"
 #include "pantallas/pantallaJuego.h"
@@ -16,7 +14,7 @@ namespace Juego {
 		static void chequearColisionBordes();
 		static void moverDisparos();
 		static const float velocidadDisparo = 350.0f;
-		const int cantMaxDisparos=15;
+		const int cantMaxDisparos=5;
 		Bala disparo[cantMaxDisparos];
 		Texture2D spriteDisparo;
 
@@ -49,6 +47,7 @@ namespace Juego {
 			if (IsKeyPressed(KEY_SPACE) ) {
 				for (int i = 0; i < cantMaxDisparos; i++)	{
 					if (!disparo[i].activo) {
+						PlaySound(sonidoDisparo);
 						disparo[i].pos = nave.pos;
 						disparo[i].posYEscala.x = nave.pos.x;
 						disparo[i].posYEscala.y = nave.pos.y;

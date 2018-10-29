@@ -16,6 +16,9 @@ namespace Juego {
 		};
 		enum fases { inicio, juego, salirAMenu, fin };
 		extern fases fase;
+		extern Sound sonidoDisparo;
+		extern Sound sonidoExplosionNave;
+		extern Sound sonidoExplosionAsteroide;
 		extern bool pausa;
 		extern bool hayVolumen;
 

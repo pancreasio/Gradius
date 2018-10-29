@@ -14,8 +14,11 @@ namespace Juego {
 		static void chequearColisionBordes();
 		static void moverAsteroides();
 		static void crearAsteroides();
+		static int maxVelocidadAsteroides;
+		static int minVelocidadAsteroides;
 
 		Asteroide asteroide;
+		int asteroidesDestruidos;
 
 		void chequearColisionBordes() {
 			if (asteroide.activo) {
@@ -52,12 +55,20 @@ namespace Juego {
 				asteroide.activo = true;
 				asteroide.pos.x = GetScreenWidth() + asteroide.textura.width;
 				asteroide.pos.y = GetRandomValue(0, GetScreenHeight());
-				asteroide.velocidad.x = GetRandomValue(-500,-1000);
+				minVelocidadAsteroides -= 50;
+				maxVelocidadAsteroides -= 20;
+				if (minVelocidadAsteroides > maxVelocidadAsteroides) {
+					minVelocidadAsteroides = maxVelocidadAsteroides;
+				}
+				asteroide.velocidad.x = GetRandomValue(minVelocidadAsteroides,maxVelocidadAsteroides);
 			}
 		}
 
 		void inicializarAsteroides() {
 			crearAsteroides();
+			asteroidesDestruidos = 0;
+			maxVelocidadAsteroides = -800;
+			minVelocidadAsteroides = -500;
 		}
 
 		void actualizarAsteroides() {
