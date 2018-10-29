@@ -9,9 +9,9 @@ namespace Juego {
 
 		static const int cantBotonesMenu = 3;
 		static Boton botonMenu[cantBotonesMenu];
-		static const int cantBotonesJuego = 2;
+		static const int cantBotonesJuego = 1;
 		static Boton botonJuego[cantBotonesJuego];
-		static const int cantBotonesPausa = 3;
+		static const int cantBotonesPausa = 4;
 		static Boton botonPausa[cantBotonesPausa];
 		static const int cantBotonesCreditos = 1;
 		static Boton botonCreditos[cantBotonesCreditos];
@@ -126,7 +126,6 @@ namespace Juego {
 					}
 				}
 			}
-
 		}
 
 		void dibujarBotonesMenu() {
@@ -146,23 +145,21 @@ namespace Juego {
 		//JUEGO-----------------------------------
 		void inicializarBotonesJuego() {
 			//En partida------------------------------------
-			botonJuego[opcPausar].posYTamanio.x = GetScreenWidth()*0.8f;
+			botonJuego[opcPausar].posYTamanio.x = GetScreenWidth()*0.9f;
 			botonJuego[opcPausar].opcion = "Pausar";
-			botonJuego[opcSilenciar].posYTamanio.x = GetScreenWidth()*0.9f;
-			botonJuego[opcSilenciar].opcion = "Sonido: I/O";
 
-			for (int i = 0; i < cantBotonesJuego; i++) {
-				botonJuego[i].posYTamanio.y = GetScreenHeight() *0.01f;
-				botonJuego[i].posYTamanio.width = GetScreenWidth() *0.09f;
-				botonJuego[i].posYTamanio.height = GetScreenHeight() *0.06f;
-				botonJuego[i].estaSeleccionadaConMouse = false;
-				botonJuego[i].centroX = botonJuego[i].posYTamanio.x + botonJuego[i].posYTamanio.width / 2;
-				botonJuego[i].centroY = botonJuego[i].posYTamanio.y + botonJuego[i].posYTamanio.height / 2;
-			}
+			botonJuego[opcPausar].posYTamanio.y = GetScreenHeight() *0.01f;
+			botonJuego[opcPausar].posYTamanio.width = GetScreenWidth() *0.09f;
+			botonJuego[opcPausar].posYTamanio.height = GetScreenHeight() *0.06f;
+			botonJuego[opcPausar].estaSeleccionadaConMouse = false;
+			botonJuego[opcPausar].centroX = botonJuego[opcPausar].posYTamanio.x + botonJuego[opcPausar].posYTamanio.width / 2;
+			botonJuego[opcPausar].centroY = botonJuego[opcPausar].posYTamanio.y + botonJuego[opcPausar].posYTamanio.height / 2;
 
 			//En pausa--------------------------------------------- 
-			botonPausa[opcDespausar].posYTamanio.y = GetScreenHeight()*0.4f;
+			botonPausa[opcDespausar].posYTamanio.y = GetScreenHeight()*0.2f;
 			botonPausa[opcDespausar].opcion = "Continuar";
+			botonPausa[opcSilenciar].posYTamanio.y = GetScreenHeight()*0.4f;
+			botonPausa[opcSilenciar].opcion = "Sonido: I/O";
 			botonPausa[opcVolverPausa].posYTamanio.y = GetScreenHeight()*0.6f;
 			botonPausa[opcVolverPausa].opcion = "Volver al Menu";
 			botonPausa[opcReiniciar].posYTamanio.y = GetScreenHeight()*0.8f;
@@ -173,55 +170,82 @@ namespace Juego {
 				botonPausa[i].posYTamanio.width = GetScreenWidth() *0.4f;
 				botonPausa[i].posYTamanio.height = GetScreenHeight() *0.15f;
 				botonPausa[i].estaSeleccionadaConMouse = false;
+				botonPausa[i].estaSeleccionadaConTeclado = false;
 				botonPausa[i].centroX = botonPausa[i].posYTamanio.x + botonPausa[i].posYTamanio.width / 2;
 				botonPausa[i].centroY = botonPausa[i].posYTamanio.y + botonPausa[i].posYTamanio.height / 2;
 			}
 		}
 
 		void actualizarBotonesJuego(){
+			static int ultimaSeleccion = 0;
+
 			//En Pausa---------------------------------
 			if (pausa) {
+				botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+
+				if (IsKeyPressed(KEY_UP)) {
+					if (ultimaSeleccion <= 0) {
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+						ultimaSeleccion = cantBotonesPausa - 1;
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+					}
+					else {
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+						ultimaSeleccion--;
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+					}
+				}
+
+				if (IsKeyPressed(KEY_DOWN)) {
+					if (ultimaSeleccion >= cantBotonesPausa - 1) {
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+						ultimaSeleccion = 0;
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+					}
+					else {
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = false;
+						ultimaSeleccion++;
+						botonPausa[ultimaSeleccion].estaSeleccionadaConTeclado = true;
+					}
+				}
+
 				if (CheckCollisionPointRec(GetMousePosition(), botonPausa[opcDespausar].posYTamanio)) {
 					botonPausa[opcDespausar].estaSeleccionadaConMouse = true;
-					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-						pausa = false;
-					}
+					ultimaSeleccion = opcDespausar;
 				}
 				else {
 					botonPausa[opcDespausar].estaSeleccionadaConMouse = false;
 				}
+				if (CheckCollisionPointRec(GetMousePosition(), botonJuego[opcSilenciar].posYTamanio)) {
+					botonJuego[opcSilenciar].estaSeleccionadaConMouse = true;
+					ultimaSeleccion = opcSilenciar;
+				}
+				else {
+					botonJuego[opcSilenciar].estaSeleccionadaConMouse = false;
+				}
 				if (CheckCollisionPointRec(GetMousePosition(), botonPausa[opcReiniciar].posYTamanio)) {
 					botonPausa[opcReiniciar].estaSeleccionadaConMouse = true;
-					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-						fase = inicio;
-					}
+					ultimaSeleccion = opcReiniciar;
 				}
 				else {
 					botonPausa[opcReiniciar].estaSeleccionadaConMouse = false;
 				}
 				if (CheckCollisionPointRec(GetMousePosition(), botonPausa[opcVolverPausa].posYTamanio)) {
 					botonPausa[opcVolverPausa].estaSeleccionadaConMouse = true;
-					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-						fase = salirAMenu;
-					}
+					ultimaSeleccion = opcVolverPausa;
 				}
 				else {
 					botonPausa[opcVolverPausa].estaSeleccionadaConMouse = false;
 				}
-			}else {
-			//En partida------------------------------------
-				if (CheckCollisionPointRec(GetMousePosition(), botonJuego[opcPausar].posYTamanio)) {
-					botonJuego[opcPausar].estaSeleccionadaConMouse = true;
-					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-						pausa = true;
+
+				if (botonPausa[opcDespausar].estaSeleccionadaConMouse|| botonPausa[opcDespausar].estaSeleccionadaConTeclado) {
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+						pausa = false;
 					}
 				}
-				else {
-					botonJuego[opcPausar].estaSeleccionadaConMouse = false;
-				}
-				if (CheckCollisionPointRec(GetMousePosition(), botonJuego[opcSilenciar].posYTamanio)) {
-					botonJuego[opcSilenciar].estaSeleccionadaConMouse = true;
-					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+				
+				if (botonPausa[opcSilenciar].estaSeleccionadaConMouse || botonPausa[opcSilenciar].estaSeleccionadaConTeclado) {
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
 						/*if (hayVolumen) {
 							SetSoundVolume(sonidoDisparo, 0.0f);
 							SetSoundVolume(sonidoExplosionAsteroide, 0.0f);
@@ -233,11 +257,43 @@ namespace Juego {
 							SetSoundVolume(sonidoExplosionDisparo, 0.5f);
 							hayVolumen = true;
 						}*/
-						
+					}
+				}
+				
+				if (botonPausa[opcReiniciar].estaSeleccionadaConMouse || botonPausa[opcReiniciar].estaSeleccionadaConTeclado) {
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+						fase = inicio;
+					}
+				}
+			
+				if (botonPausa[opcVolverPausa].estaSeleccionadaConMouse || botonPausa[opcVolverPausa].estaSeleccionadaConTeclado) {
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+						fase = salirAMenu;
+					}
+				}
+
+				for (int i = 0; i < cantBotonesPausa; i++) {
+					if (botonPausa[i].estaSeleccionadaConMouse) {
+						for (int j = 0; j < cantBotonesPausa; j++) {
+							botonPausa[j].estaSeleccionadaConTeclado = false;
+						}
+					}
+				}
+			}
+			else {
+			//En partida------------------------------------
+				if (CheckCollisionPointRec(GetMousePosition(), botonJuego[opcPausar].posYTamanio)) {
+					botonJuego[opcPausar].estaSeleccionadaConMouse = true;
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+						pausa = true;
 					}
 				}
 				else {
-					botonJuego[opcSilenciar].estaSeleccionadaConMouse = false;
+					botonJuego[opcPausar].estaSeleccionadaConMouse = false;
+				}
+
+				if (IsKeyReleased(KEY_ESCAPE)) {
+					pausa = true;
 				}
 			}
 			
@@ -249,7 +305,7 @@ namespace Juego {
 			if (pausa) {
 				tamanioLetras = (GetScreenHeight()*GetScreenWidth())*0.0052 / 100;
 				for (int i = 0; i < cantBotonesPausa; i++) {
-					if (botonPausa[i].estaSeleccionadaConMouse) {
+					if (botonPausa[i].estaSeleccionadaConMouse || botonPausa[i].estaSeleccionadaConTeclado) {
 						DrawRectangleRec(botonPausa[i].posYTamanio, DARKBLUE);
 					}
 					else {
@@ -356,7 +412,7 @@ namespace Juego {
 			}
 
 			if (IsKeyPressed(KEY_DOWN)) {
-				if (ultimaSeleccion >= cantBotonesMenu - 1) {
+				if (ultimaSeleccion >= cantBotonesGO - 1) {
 					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = false;
 					ultimaSeleccion = 0;
 					botonGO[ultimaSeleccion].estaSeleccionadaConTeclado = true;

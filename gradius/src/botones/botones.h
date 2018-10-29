@@ -8,8 +8,8 @@
 namespace Juego {
 	namespace Botones {
 		enum opcionesMenu { opcJugar, opcCreditos, opcSalirMenu };
-		enum opcionesJuego { opcPausar, opcSilenciar};
-		enum opcionesPausa {opcDespausar,opcVolverPausa,opcReiniciar};
+		enum opcionesJuego { opcPausar};
+		enum opcionesPausa {opcDespausar, opcSilenciar,opcVolverPausa,opcReiniciar};
 		enum opcionesGO { opcNuevaPartida, opcVolverGO, opcSalirGO };
 		enum opcionesCreditos {opcVolverCreditos};
 		struct Boton {
