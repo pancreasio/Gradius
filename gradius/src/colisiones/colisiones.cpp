@@ -15,7 +15,7 @@ namespace Juego {
 		void actualizarColisiones() {
 			//Nave con asteroides------------------------------
 			if (asteroide.activo) {
-				if (CheckCollisionCircles(nave.pos, nave.posYEscala.width / 2, asteroide.pos, asteroide.radio)) {
+				if (CheckCollisionCircleRec(asteroide.pos, asteroide.radio,nave.cajaColision)) {
 					nave.perdio = true;
 				}
 			}

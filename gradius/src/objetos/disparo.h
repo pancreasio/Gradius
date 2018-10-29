@@ -5,7 +5,7 @@
 
 namespace Juego {
 	namespace Disparo {
-		struct Balas {
+		struct Bala {
 			Vector2 pos;
 			Vector2 velocidad;
 			float rotacion;
@@ -18,7 +18,7 @@ namespace Juego {
 		};
 
 		extern const int cantMaxDisparos;
-		extern Balas disparo[];
+		extern Bala disparo[];
 		extern Texture2D spriteDisparo;
 		void inicializarDisparos();
 		void actualizarDisparos();

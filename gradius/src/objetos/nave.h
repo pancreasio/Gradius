@@ -12,6 +12,7 @@ namespace Juego {
 			Texture2D textura;
 			Rectangle posYEscala;
 			Rectangle spriteFuente;
+			Rectangle cajaColision;
 			Vector2 origen;
 			bool perdio;
 			bool gano;

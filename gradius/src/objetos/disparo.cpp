@@ -17,7 +17,7 @@ namespace Juego {
 		static void moverDisparos();
 		static const float velocidadDisparo = 350.0f;
 		const int cantMaxDisparos=15;
-		Balas disparo[cantMaxDisparos];
+		Bala disparo[cantMaxDisparos];
 		Texture2D spriteDisparo;
 
 		void crearDisparos() {
