@@ -24,7 +24,7 @@ namespace Juego {
 		Sound sonidoExplosionNave;
 		Sound sonidoExplosionAsteroide;
 		bool pausa = false;
-		bool hayVolumen=true;
+		bool hayVolumen = true;
 		static fondo estrellasLejos;
 		static fondo estrellasCerca;
 
