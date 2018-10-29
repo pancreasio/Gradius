@@ -58,6 +58,9 @@
     <ClCompile Include="..\src\pantallas\pantallaMenu.cpp">
       <Filter>src\Pantallas</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\pantallas\pantallaAyuda.cpp">
+      <Filter>src\Pantallas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\botones\botones.h">
@@ -88,6 +91,9 @@
       <Filter>src\Pantallas</Filter>
     </ClInclude>
     <ClInclude Include="..\src\pantallas\pantallaMenu.h">
+      <Filter>src\Pantallas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pantallas\pantallaAyuda.h">
       <Filter>src\Pantallas</Filter>
     </ClInclude>
   </ItemGroup>

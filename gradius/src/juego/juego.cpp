@@ -5,6 +5,7 @@
 #include "Pantallas/pantallaMenu.h"
 #include "Pantallas/pantallaGameOver.h"
 #include "Pantallas/pantallaCreditos.h"
+#include "pantallas/pantallaAyuda.h"
 
 namespace Juego {
 	static void inicializarJuego();
@@ -40,6 +41,9 @@ namespace Juego {
 		case creditos:
 			Creditos::inicializarCreditos();
 			break;
+		case ayuda:
+			Ayuda::inicializarAyuda();
+			break;
 		default:break;
 		}
 	}
@@ -57,6 +61,9 @@ namespace Juego {
 			break;
 		case creditos:
 			Creditos::actualizarCreditos();
+			break;
+		case ayuda:
+			Ayuda::actualizarAyuda();
 			break;
 		default:break;
 		}
@@ -79,6 +86,9 @@ namespace Juego {
 			break;
 		case creditos:
 			Creditos::dibujarCreditos();
+			break;
+		case ayuda:
+			Ayuda::dibujarAyuda();
 			break;
 		default:break;
 		}

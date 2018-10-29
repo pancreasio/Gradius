@@ -7,7 +7,7 @@ namespace Juego {
 	namespace Botones {
 		using namespace PantallaJuego;
 
-		static const int cantBotonesMenu = 3;
+		static const int cantBotonesMenu = 4;
 		static Boton botonMenu[cantBotonesMenu];
 		static const int cantBotonesJuego = 1;
 		static Boton botonJuego[cantBotonesJuego];
@@ -17,6 +17,8 @@ namespace Juego {
 		static Boton botonCreditos[cantBotonesCreditos];
 		static const int cantBotonesGO = 3;
 		static Boton botonGO[cantBotonesGO];
+		static const int cantBotonesAyuda= 1;
+		static Boton botonAyuda[cantBotonesAyuda];
 		
 		static void inicializarBotonesMenu();
 		static void actualizarBotonesMenu();
@@ -33,11 +35,13 @@ namespace Juego {
 
 		//MENU----------------------------------
 		void inicializarBotonesMenu() {
-			botonMenu[opcJugar].posYTamanio.y = GetScreenHeight()*0.4f;
+			botonMenu[opcJugar].posYTamanio.y = GetScreenHeight()*0.30f;
 			botonMenu[opcJugar].opcion = "Jugar";
-			botonMenu[opcCreditos].posYTamanio.y = GetScreenHeight()*0.6f;
+			botonMenu[opcCreditos].posYTamanio.y = GetScreenHeight()*0.48f;
 			botonMenu[opcCreditos].opcion = "Creditos";
-			botonMenu[opcSalirMenu].posYTamanio.y = GetScreenHeight()*0.8f;
+			botonMenu[opcAyuda].posYTamanio.y = GetScreenHeight()*0.66f;
+			botonMenu[opcAyuda].opcion = "Ayuda";
+			botonMenu[opcSalirMenu].posYTamanio.y = GetScreenHeight()*0.84f;
 			botonMenu[opcSalirMenu].opcion = "Salir";
 
 			for (int i = 0; i < cantBotonesMenu; i++) {
@@ -102,6 +106,13 @@ namespace Juego {
 			else {
 				botonMenu[opcCreditos].estaSeleccionadaConMouse = false;
 			}
+			if (CheckCollisionPointRec(GetMousePosition(), botonMenu[opcAyuda].posYTamanio)) {
+				botonMenu[opcAyuda].estaSeleccionadaConMouse = true;
+				ultimaSeleccion = opcAyuda;
+			}
+			else {
+				botonMenu[opcAyuda].estaSeleccionadaConMouse = false;
+			}
 
 			if (botonMenu[opcJugar].estaSeleccionadaConMouse || botonMenu[opcJugar].estaSeleccionadaConTeclado) {
 				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)||IsKeyReleased(KEY_ENTER)) {
@@ -111,6 +122,11 @@ namespace Juego {
 			else if (botonMenu[opcCreditos].estaSeleccionadaConMouse || botonMenu[opcCreditos].estaSeleccionadaConTeclado) {
 				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
 					estado = creditos;
+				}
+			}
+			else if (botonMenu[opcAyuda].estaSeleccionadaConMouse || botonMenu[opcAyuda].estaSeleccionadaConTeclado) {
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+					estado = ayuda;
 				}
 			}
 			else if (botonMenu[opcSalirMenu].estaSeleccionadaConMouse || botonMenu[opcSalirMenu].estaSeleccionadaConTeclado) {
@@ -489,6 +505,50 @@ namespace Juego {
 				DrawText(botonGO[i].opcion.c_str(), botonGO[i].centroX - (MeasureText(botonGO[i].opcion.c_str(), tamanioLetras) / 2), botonGO[i].centroY, tamanioLetras, BLACK);
 			}
 		}
+		
+		//AYUDA ------------------------
+		void inicializarBotonesAyuda() {
+			botonAyuda[opcVolverAyuda].posYTamanio.x = GetScreenWidth() *0.3f;
+			botonAyuda[opcVolverAyuda].posYTamanio.y = GetScreenHeight() *0.8f;
+			botonAyuda[opcVolverAyuda].posYTamanio.width = GetScreenWidth() *0.4f;
+			botonAyuda[opcVolverAyuda].posYTamanio.height = GetScreenHeight() *0.15f;
+			botonAyuda[opcVolverAyuda].estaSeleccionadaConMouse = false;
+			botonAyuda[opcVolverAyuda].estaSeleccionadaConTeclado = false;
+			botonAyuda[opcVolverAyuda].centroX = botonAyuda[opcVolverAyuda].posYTamanio.x + botonAyuda[opcVolverAyuda].posYTamanio.width / 2;
+			botonAyuda[opcVolverAyuda].centroY = botonAyuda[opcVolverAyuda].posYTamanio.y + botonAyuda[opcVolverAyuda].posYTamanio.height / 2;
+			botonAyuda[opcVolverAyuda].opcion = "Volver";
+		}
+
+		void actualizarBotonesAyuda() {
+			if (CheckCollisionPointRec(GetMousePosition(), botonAyuda[opcVolverAyuda].posYTamanio)) {
+				botonAyuda[opcVolverAyuda].estaSeleccionadaConMouse = true;
+			}
+			else {
+				botonAyuda[opcVolverAyuda].estaSeleccionadaConMouse = false;
+			}
+
+			if (IsKeyReleased(KEY_UP) || IsKeyReleased(KEY_DOWN)) {
+				botonAyuda[opcVolverAyuda].estaSeleccionadaConTeclado = true;
+			}
+
+			if (botonAyuda[opcVolverAyuda].estaSeleccionadaConMouse || botonAyuda[opcVolverAyuda].estaSeleccionadaConTeclado) {
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) || IsKeyReleased(KEY_ENTER)) {
+					estado = menu;
+				}
+			}
+		}
+
+		void dibujarBotonesAyuda() {
+			double tamanioLetras = (GetScreenHeight()*GetScreenWidth())*0.0052 / 100;
+			if (botonAyuda[opcVolverAyuda].estaSeleccionadaConMouse || botonAyuda[opcVolverAyuda].estaSeleccionadaConTeclado) {
+				DrawRectangleRec(botonAyuda[opcVolverAyuda].posYTamanio, DARKBLUE);
+			}
+			else {
+				DrawRectangleRec(botonAyuda[opcVolverAyuda].posYTamanio, BLUE);
+			}
+
+			DrawText(botonAyuda[opcVolverAyuda].opcion.c_str(), botonAyuda[opcVolverAyuda].centroX - (MeasureText(botonAyuda[opcVolverAyuda].opcion.c_str(), tamanioLetras) / 2), botonAyuda[opcVolverAyuda].centroY, tamanioLetras, BLACK);
+		}
 
 		void inicializarBotones() {
 			switch (estado) {
@@ -503,6 +563,9 @@ namespace Juego {
 				break;
 			case creditos:
 				inicializarBotonesCreditos();
+				break;
+			case ayuda:
+				inicializarBotonesAyuda();
 				break;
 			default:break;
 			}
@@ -522,6 +585,9 @@ namespace Juego {
 			case creditos:
 				actualizarBotonesCreditos();
 				break;
+			case ayuda:
+				actualizarBotonesAyuda();
+				break;
 			default:break;
 			}
 		}
@@ -539,6 +605,9 @@ namespace Juego {
 				break;
 			case creditos:
 				dibujarBotonesCreditos();
+				break;
+			case ayuda:
+				dibujarBotonesAyuda();
 				break;
 			default:break;
 			}

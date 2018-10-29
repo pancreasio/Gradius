@@ -148,6 +148,7 @@ xcopy "$(SolutionDir)res" "$(TargetDir)res"/E /y /s</Command>
     <ClCompile Include="..\src\objetos\asteroides.cpp" />
     <ClCompile Include="..\src\objetos\disparo.cpp" />
     <ClCompile Include="..\src\objetos\nave.cpp" />
+    <ClCompile Include="..\src\pantallas\pantallaAyuda.cpp" />
     <ClCompile Include="..\src\pantallas\pantallaCreditos.cpp" />
     <ClCompile Include="..\src\pantallas\pantallaGameOver.cpp" />
     <ClCompile Include="..\src\pantallas\pantallaJuego.cpp" />
@@ -160,6 +161,7 @@ xcopy "$(SolutionDir)res" "$(TargetDir)res"/E /y /s</Command>
     <ClInclude Include="..\src\objetos\asteroides.h" />
     <ClInclude Include="..\src\objetos\disparo.h" />
     <ClInclude Include="..\src\objetos\nave.h" />
+    <ClInclude Include="..\src\pantallas\pantallaAyuda.h" />
     <ClInclude Include="..\src\pantallas\pantallaCreditos.h" />
     <ClInclude Include="..\src\pantallas\pantallaGameOver.h" />
     <ClInclude Include="..\src\pantallas\pantallaJuego.h" />

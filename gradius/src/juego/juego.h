@@ -2,7 +2,7 @@
 #define JUEGO_H
 
 namespace Juego {
-	enum estados { menu, partida, gameOver, creditos };
+	enum estados { menu, partida, gameOver, creditos, ayuda };
 	extern estados estado;
 	extern int anchoPantalla;
 	extern int altoPantalla;
