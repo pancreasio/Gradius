@@ -1,5 +1,6 @@
 #include "pantallaAyuda.h"
 
+#include "raylib.h"
 #include "botones/botones.h"
 
 namespace Juego {

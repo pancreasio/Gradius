@@ -1,3 +1,14 @@
+## v1.0 29-10-2018
+### Añadido
+- Sonidos
+- Pantalla de ayuda con el objetivo del juego y los controles
+- Colisiones
+### Modificado
+- El manejo general del juego permitiendo manejar todo el programa con el teclado
+- Cajas de colision
+- Condicion de victoria: Se deben destruir 10 asteroides para ganar
+- Boton para silenciar los sonidos dentro del menu de pausa
+
 ## v0.2 26-10-2018
 ### Añadido
 - Animacion de la nave
