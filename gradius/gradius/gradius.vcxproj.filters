@@ -61,6 +61,12 @@
     <ClCompile Include="..\src\pantallas\pantallaAyuda.cpp">
       <Filter>src\Pantallas</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\objetos\bomba.cpp">
+      <Filter>src\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\objetos\antiaereo.cpp">
+      <Filter>src\Objetos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\botones\botones.h">
@@ -95,6 +101,12 @@
     </ClInclude>
     <ClInclude Include="..\src\pantallas\pantallaAyuda.h">
       <Filter>src\Pantallas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\objetos\antiaereo.h">
+      <Filter>src\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\objetos\bomba.h">
+      <Filter>src\Objetos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

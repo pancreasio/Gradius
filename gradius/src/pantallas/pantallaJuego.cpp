@@ -5,6 +5,7 @@
 #include "objetos/nave.h"
 #include "objetos/asteroides.h"
 #include "objetos/disparo.h"
+#include "objetos/bomba.h"
 #include "colisiones/colisiones.h"
 #include "botones/botones.h"
 
@@ -15,6 +16,7 @@ namespace Juego {
 		using namespace Disparo;
 		using namespace Colisiones;
 		using namespace Botones;
+		using namespace Bomba;
 
 		using namespace Juego;
 		static bool estaInicializado = false;
@@ -60,6 +62,8 @@ namespace Juego {
 				actualizarDisparos();
 				actualizarAsteroides();
 				actualizarColisiones();
+				actualizarBomba();
+				
 			}
 			if (jugadorPerdio()) {
 				if (!desinicializar) {
@@ -88,6 +92,7 @@ namespace Juego {
 				dibujarNave();
 				dibujarAsteroides();
 				dibujarBotones();
+				dibujarBomba();
 			}
 		}
 
@@ -115,6 +120,7 @@ namespace Juego {
 				inicializarAsteroides();
 				inicializarDisparos();
 				inicializarBotones();
+				inicializarBomba();
 				fase = juego;
 				pausa = false;
 				inicializarFondo();
