@@ -13,15 +13,12 @@ namespace Juego {
 		double ultimaBomba;
 		Texture2D spriteBomba;
 		Bomba moab;
-		static const float velocidadBombaY = 250.0f;
-		static const float maxVelocidadBombaX = 100.0f;
+		static const float velocidadBombaY = 350.0f;
+		static const float maxVelocidadBombaX = 200.0f;
 		static float velocidadBombaX;
-		static const float desaceleracionBombaX = 10.0f;
+		static const float desaceleracionBombaX = 0.02f;
 
-		static void inicializarBomba();
-		static void actualizarBomba();
-		static void dibujarBomba();
-		static void desinicializarBomba();
+		
 
 		void inicializarBomba() {
 			spriteBomba = LoadTexture("res/granadaGradius.png");
@@ -55,6 +52,7 @@ namespace Juego {
 					moab.posYEscala.x = nave.pos.x;
 					moab.posYEscala.y = nave.pos.y;
 					moab.activa = true;
+					velocidadBombaX = maxVelocidadBombaX;
 				}
 			}
 		}
@@ -62,7 +60,10 @@ namespace Juego {
 		void moverBomba() {
 			if (moab.activa) {
 				moab.pos.y += velocidadBombaY * GetFrameTime();
-				moab.pos.x += maxVelocidadBombaX * GetFrameTime();
+				moab.pos.x += velocidadBombaX * GetFrameTime();
+				if (velocidadBombaX > 0) {
+					velocidadBombaX -= desaceleracionBombaX;
+				}
 				moab.posYEscala.x = moab.pos.x;
 				moab.posYEscala.y = moab.pos.y;
 			}
